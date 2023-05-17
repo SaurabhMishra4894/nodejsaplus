@@ -51,6 +51,15 @@ router.get('/randomSuggestion/:catId', function (req, res, next) {
     }
   })
 })
+router.get('/ourparticipation/', function (req, res, next) {
+  connection.query('SELECT na.id,na.name,GROUP_CONCAT(ig.image) FROM `ap_participation_name` na join `ap_participation_image` ig on na.id=ig.pid group by na.name;', function (err, rows) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send({'data':rows});
+    }
+  })
+})
 
 
 module.exports = router;
